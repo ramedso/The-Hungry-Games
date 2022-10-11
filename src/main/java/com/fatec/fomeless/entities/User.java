@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +23,9 @@ public abstract class User implements Serializable {
     protected String address;
     protected String email;
 
+    @OneToMany(mappedBy = "user")
+    protected List<Post> posts;
+
     public User(Long id, String name, String address, String email) {
         emailValidator(email);
         this.id = id;
@@ -32,7 +36,7 @@ public abstract class User implements Serializable {
 
     public void emailValidator(String email){
         if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            throw new IllegalArgumentException("Invalid email");
+            throw new IllegalArgumentException("Invalid email: " + email);
         }
     }
 }
