@@ -20,10 +20,7 @@ public abstract class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Column(name = "name")
     protected String name;
-    @Column(name = "address")
-    protected Address address;
-    @Column(name = "email")
-    protected Email email;
+    protected String address;
+    protected String email;
 }
