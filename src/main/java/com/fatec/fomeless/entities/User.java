@@ -11,7 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_user")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User implements Serializable {
 
     private static final Long serialVersionUID = 1L;
@@ -25,6 +26,9 @@ public abstract class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     protected List<Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    protected List<Comment> comments;
 
     public User(Long id, String name, String address, String email) {
         emailValidator(email);

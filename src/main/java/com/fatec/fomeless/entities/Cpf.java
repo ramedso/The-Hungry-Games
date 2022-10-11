@@ -1,10 +1,17 @@
 package com.fatec.fomeless.entities;
 
-public class Document {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Cpf {
 
     private String number;
 
-    public Document(String number) {
+    public Cpf(String number) {
         if (validateCpf(number)) {
             this.number = number;
         }
@@ -19,10 +26,4 @@ public class Document {
 
         throw new IllegalArgumentException("Invalid number: " + number);
     }
-
-    public static void main(String[] args) {
-        Document doc = new Document("12345698711");
-        System.out.println(doc.number);
-    }
-
 }

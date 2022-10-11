@@ -32,4 +32,8 @@ public class Comment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private User user;
 }
