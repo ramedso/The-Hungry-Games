@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,14 +22,32 @@ public class UserPF extends GenericUser implements Serializable{
 
     @Serial
     private static final long serialVersionUID = 1L;
-    @Column(name = "cpf")
-    private String cpf;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant birthDate;
 
-    public UserPF(Long id, String name, String address, String email, String cpf, Instant birthDate) {
-        super(id, name, address, email);
+    @OneToOne(mappedBy = "userPF", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Email email;
+
+    @OneToOne(mappedBy = "userPF", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Cpf cpf;
+
+    @OneToMany(mappedBy = "userPFPost")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userPFComment")
+    private List<Comment> comments = new ArrayList<>();
+
+    public UserPF(Long id, String name, String address, Cpf cpf, Instant birthDate, Email email) {
+        super(id, name, address);
         this.cpf = cpf;
         this.birthDate = birthDate;
+        this.email = email;
     }
 }

@@ -37,6 +37,11 @@ public class Post implements Serializable {
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private GenericUser userPost;
+    @JoinColumn(name = "userPF_id")
+    private UserPF userPFPost;
+
+    @ManyToOne
+    @JoinColumn(name = "userPJ_id")
+    private UserPF userPJPost;
+
 }
