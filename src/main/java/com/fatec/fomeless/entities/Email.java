@@ -1,6 +1,5 @@
 package com.fatec.fomeless.entities;
 
-import com.fatec.fomeless.entities.Validations.DocValidation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,11 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_email")
-public class Email implements DocValidation, Serializable {
+public class Email implements FieldsValidation, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     private final static String CONST_EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
     @Id
@@ -29,22 +27,27 @@ public class Email implements DocValidation, Serializable {
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
-    private UserPF userPF;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private UserPJ userPJ;
+    private User user;
 
     public Email(String emailAddress) {
-        validateRegex(emailAddress);
-        this.emailAddress = emailAddress;
+        emptyOrBlankSpaces(emailAddress);
+        regexValidation(emailAddress);
+        this.emailAddress = emailAddress.trim();
     }
 
     @Override
-    public void validateRegex(String doc) {
-        if (!doc.matches(CONST_EMAIL_REGEX) && !doc.isBlank() && !doc.isEmpty()) {
-            throw new IllegalArgumentException("Invalid email: " + doc);
+    public void emptyOrBlankSpaces(String docNumber) {
+        if (docNumber.isEmpty() || docNumber.isBlank()) {
+            throw new IllegalArgumentException("There are blank spaces");
+        }
+    }
+
+    @Override
+    public void regexValidation(String obj) {
+        if (!obj.matches(CONST_EMAIL_REGEX)) {
+            throw new IllegalArgumentException("Invalid email: " + obj);
         }
     }
 }
+
+

@@ -27,21 +27,18 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
-    private boolean isOpen;
+    private boolean threadOpen;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "userPF_id")
-    private UserPF userPFPost;
-
-    @ManyToOne
-    @JoinColumn(name = "userPJ_id")
-    private UserPF userPJPost;
-
+    @JoinColumn(name = "user_id")
+    private User user;
 }
