@@ -29,7 +29,8 @@ public class Email implements FieldsValidation, Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Email(String emailAddress) {
+    public Email(Long id, String emailAddress) {
+        this.id = id;
         emptyOrBlankSpaces(emailAddress);
         regexValidation(emailAddress);
         this.emailAddress = emailAddress.trim();

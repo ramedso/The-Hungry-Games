@@ -24,17 +24,19 @@ public class Document implements FieldsValidation, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String docNumber;
+    private boolean legalPerson;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Document(Long id, String docNumber) {
+    public Document(Long id, String docNumber, boolean legalPerson) {
         emptyOrBlankSpaces(docNumber);
         regexValidation(docNumber);
         this.id = id;
         this.docNumber = docNumber.trim();
+        this.legalPerson = legalPerson;
     }
 
     @Override

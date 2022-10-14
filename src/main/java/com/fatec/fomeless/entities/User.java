@@ -23,18 +23,19 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String password;
     private String address;
     private String phone;
-    private String birthDate;
-    public boolean isLegalPerson;
+    private String signUpDate;
 
-    public User(Long id, String name, String address, String phone, String birthDate, boolean isLegalPerson) {
+    public User(Long id, String name, String password, String address, String phone,
+                String signUpDate) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.address = address;
         this.phone = phone;
-        this.birthDate = dateFormat();
-        this.isLegalPerson = isLegalPerson;
+        this.signUpDate = signUpDate;
     }
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
