@@ -1,6 +1,6 @@
 package com.fatec.fomeless.entities;
 
-import com.fatec.fomeless.entities.tests.DocumentFactory;
+import com.fatec.fomeless.tests.DocumentFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

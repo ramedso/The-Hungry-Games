@@ -1,4 +1,4 @@
-package com.fatec.fomeless.entities.tests;
+package com.fatec.fomeless.tests;
 
 import com.fatec.fomeless.entities.Document;
 
