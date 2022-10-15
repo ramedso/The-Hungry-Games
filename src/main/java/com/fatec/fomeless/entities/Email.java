@@ -30,15 +30,15 @@ public class Email implements FieldsValidation, Serializable {
     private User user;
 
     public Email(Long id, String emailAddress) {
-        this.id = id;
         emptyOrBlankSpaces(emailAddress);
         regexValidation(emailAddress);
+        this.id = id;
         this.emailAddress = emailAddress.trim();
     }
 
     @Override
-    public void emptyOrBlankSpaces(String docNumber) {
-        if (docNumber.isEmpty() || docNumber.isBlank()) {
+    public void emptyOrBlankSpaces(String emailAddress) {
+        if (emailAddress.isEmpty() || emailAddress.isBlank()) {
             throw new IllegalArgumentException("There are blank spaces");
         }
     }
