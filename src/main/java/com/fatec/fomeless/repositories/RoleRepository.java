@@ -1,10 +1,9 @@
 package com.fatec.fomeless.repositories;
 
-import com.fatec.fomeless.entities.Email;
-import com.fatec.fomeless.entities.User;
+import com.fatec.fomeless.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmailRepository extends JpaRepository<Email, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }

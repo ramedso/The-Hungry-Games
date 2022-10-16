@@ -1,8 +1,10 @@
 package com.fatec.fomeless.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -11,19 +13,14 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "tb_email")
 public class Email implements FieldsValidation, Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
     private final static String CONST_EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String emailAddress;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")

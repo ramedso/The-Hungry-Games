@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,18 +31,21 @@ public class UserDTO implements Serializable {
     @NotBlank(message = "Mandatory field")
     private String phone;
 
-    @PastOrPresent(message = "The date cannot be future ")
+    @NotBlank(message = "The date cannot be future ")
     private String signUpDate;
 
-    @javax.validation.constraints.Email(message = "Please entry a valid email")
+    @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Please verify your email")
     private String email;
 
+    private Set<RoleDTO> roles = new HashSet<>();
+
     public UserDTO(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.address = user.getAddress();
-        this.phone = user.getPhone();
-        this.signUpDate = user.getSignUpDate();
-        this.email = user.getEmail().getEmailAddress();
+        id = user.getId();
+        name = user.getName();
+        address = user.getAddress();
+        phone = user.getPhone();
+        signUpDate = user.getSignUpDate();
+        email = user.getEmail();
+        user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
     }
 }

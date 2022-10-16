@@ -30,23 +30,12 @@ public class User implements Serializable {
     private String phone;
     private String signUpDate;
 
-    public User(Long id, String name, String password, String address, String phone,
-                String signUpDate) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.phone = phone;
-        this.signUpDate = signUpDate;
-    }
+    @Column(unique = true)
+    private String email;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Document document;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Email email;
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
