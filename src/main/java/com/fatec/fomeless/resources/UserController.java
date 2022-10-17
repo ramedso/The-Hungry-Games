@@ -5,6 +5,7 @@ import com.fatec.fomeless.dto.UserInsertDTO;
 import com.fatec.fomeless.dto.UserUpdateDTO;
 import com.fatec.fomeless.services.UserService;
 import com.fatec.fomeless.services.exceptions.DatabaseException;
+import com.fatec.fomeless.services.exceptions.InvalidEmailException;
 import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +46,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id,
-                                          @RequestBody @Valid UserUpdateDTO dto) throws ResourceNotFoundException {
+                                          @RequestBody @Valid UserUpdateDTO dto) throws ResourceNotFoundException, InvalidEmailException {
         UserDTO newDto = service.update(id, dto);
         return ResponseEntity.ok().body(newDto);
     }

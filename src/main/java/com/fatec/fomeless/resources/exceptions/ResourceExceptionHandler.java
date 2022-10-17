@@ -1,9 +1,11 @@
 package com.fatec.fomeless.resources.exceptions;
 
 import com.fatec.fomeless.services.exceptions.DatabaseException;
+import com.fatec.fomeless.services.exceptions.InvalidEmailException;
 import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -35,6 +37,19 @@ public class ResourceExceptionHandler {
         error.setError("Database exception");
         error.setPath(request.getRequestURI());
         error.setMessage(e.getMessage());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<EmailException> email(MethodArgumentNotValidException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        EmailException error = new EmailException();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Email cannot be updated");
+        error.setPath(request.getRequestURI());
+        error.setMessage("Please verify your email");
 
         return ResponseEntity.status(status).body(error);
     }

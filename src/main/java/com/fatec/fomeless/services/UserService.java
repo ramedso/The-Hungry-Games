@@ -7,6 +7,7 @@ import com.fatec.fomeless.entities.User;
 import com.fatec.fomeless.repositories.RoleRepository;
 import com.fatec.fomeless.repositories.UserRepository;
 import com.fatec.fomeless.services.exceptions.DatabaseException;
+import com.fatec.fomeless.services.exceptions.InvalidEmailException;
 import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -51,7 +53,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserUpdateDTO dto) throws ResourceNotFoundException {
+    public UserDTO update(Long id, UserUpdateDTO dto) throws ResourceNotFoundException, InvalidEmailException {
         try {
             User user = repository.getReferenceById(id);
             dtoConversion(dto, user);
@@ -59,6 +61,8 @@ public class UserService {
             return new UserDTO(user);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found: " + id);
+        } catch (Exception e) {
+            throw new InvalidEmailException("");
         }
     }
 
