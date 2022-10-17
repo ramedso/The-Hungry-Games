@@ -6,12 +6,17 @@ import com.fatec.fomeless.dto.UserUpdateDTO;
 import com.fatec.fomeless.entities.User;
 import com.fatec.fomeless.repositories.RoleRepository;
 import com.fatec.fomeless.repositories.UserRepository;
+import com.fatec.fomeless.services.exceptions.DatabaseException;
+import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -46,16 +51,23 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserUpdateDTO dto) {
-        User user = repository.getReferenceById(id);
-        dtoConversion(dto, user);
-        user = repository.save(user);
-        return new UserDTO(user);
+    public UserDTO update(Long id, UserUpdateDTO dto) throws ResourceNotFoundException {
+        try {
+            User user = repository.getReferenceById(id);
+            dtoConversion(dto, user);
+            user = repository.save(user);
+            return new UserDTO(user);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found: " + id);
+        }
     }
 
-    @Transactional
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public void delete(Long id) throws ResourceNotFoundException {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id not found: " + id);
+        }
     }
 
     private void dtoConversion(UserDTO dto, User entity) {

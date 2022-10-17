@@ -4,6 +4,8 @@ import com.fatec.fomeless.dto.UserDTO;
 import com.fatec.fomeless.dto.UserInsertDTO;
 import com.fatec.fomeless.dto.UserUpdateDTO;
 import com.fatec.fomeless.services.UserService;
+import com.fatec.fomeless.services.exceptions.DatabaseException;
+import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,13 +45,13 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id,
-                                          @RequestBody @Valid UserUpdateDTO dto) {
+                                          @RequestBody @Valid UserUpdateDTO dto) throws ResourceNotFoundException {
         UserDTO newDto = service.update(id, dto);
         return ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> delete(@PathVariable Long id) throws ResourceNotFoundException {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
