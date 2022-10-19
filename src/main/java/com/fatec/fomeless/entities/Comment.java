@@ -27,7 +27,7 @@ public class Comment implements Serializable {
     private String description;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant date;
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "post_id")

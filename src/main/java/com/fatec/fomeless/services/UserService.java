@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -36,6 +37,7 @@ public class UserService {
         return list.map(UserDTO::new);
     }
 
+    @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         Optional<User> obj = repository.findById(id);
         User user = obj.orElseThrow();
@@ -57,6 +59,7 @@ public class UserService {
         try {
             User user = repository.getReferenceById(id);
             dtoConversion(dto, user);
+            user.setPassword(dto.getPassword());
             user = repository.save(user);
             return new UserDTO(user);
         } catch (EntityNotFoundException e) {

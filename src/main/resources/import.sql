@@ -14,10 +14,10 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 3);
 
-INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (1, '870.050.750-48', FALSE);
-INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (2, '69.963.521/0001-84', TRUE);
-INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (3, '965.365.963-95', FALSE);
-INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (4, '23.075.868/0001-56', TRUE);
+INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (1, '87005075048', FALSE);
+INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (2, '69963521000184', TRUE);
+INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (3, '96536596395', FALSE);
+INSERT INTO tb_document(user_id, doc_Number, legal_Person) VALUES (4, '23075868000156', TRUE);
 
 INSERT INTO tb_post(title, description, date, thread_Open, user_id) VALUES ('Have some food here!', 'Rice, beans and chocolates!', TIMESTAMP WITH TIME ZONE '2020-07-15T10:00:00Z', TRUE, 1);
 

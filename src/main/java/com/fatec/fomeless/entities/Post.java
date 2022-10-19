@@ -31,8 +31,7 @@ public class Post implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant date;
+    private String date;
     private boolean threadOpen;
 
     @OneToMany(mappedBy = "post")
