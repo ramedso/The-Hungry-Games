@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +31,11 @@ public class Post implements Serializable {
     private String description;
 
     private String date;
-    private boolean threadOpen;
 
-    @OneToMany(mappedBy = "post")
+    private boolean threadOpen = true;
+    private Integer numberOfComments;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne

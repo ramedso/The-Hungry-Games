@@ -10,6 +10,5 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
 public class EmailException extends StandardException {
 }

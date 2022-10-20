@@ -42,14 +42,14 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<EmailException> email(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<StandardException> email(MethodArgumentNotValidException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        EmailException error = new EmailException();
+        StandardException error = new StandardException();
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());
-        error.setError("Email cannot be updated");
+        error.setError("Some fields are missing or incomplete");
         error.setPath(request.getRequestURI());
-        error.setMessage("Please verify your email");
+        error.setMessage("Please verify the fields");
 
         return ResponseEntity.status(status).body(error);
     }

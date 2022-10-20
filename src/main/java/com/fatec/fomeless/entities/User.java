@@ -1,5 +1,6 @@
 package com.fatec.fomeless.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
