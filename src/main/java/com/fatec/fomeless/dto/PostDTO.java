@@ -31,7 +31,6 @@ public class PostDTO implements Serializable {
     private String description;
     private String date;
     private boolean threadOpen;
-    private Integer numberOfComments;
     private List<CommentDTO> comments = new ArrayList<>();
 
     public PostDTO(Post entity) {
@@ -44,6 +43,5 @@ public class PostDTO implements Serializable {
     public PostDTO(Post entity, List<Comment> comments) {
         this(entity);
         comments.forEach(comment -> this.comments.add(new CommentDTO(comment)));
-        numberOfComments = comments.size();
     }
 }

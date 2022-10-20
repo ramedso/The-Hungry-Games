@@ -1,5 +1,6 @@
 package com.fatec.fomeless.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fatec.fomeless.entities.Comment;
 import com.fatec.fomeless.entities.Post;
 import com.fatec.fomeless.entities.User;
@@ -25,9 +26,7 @@ public class CommentDTO implements Serializable {
     @NotBlank
     @Size(min = 10, max = 250, message = "Description must be between 10 and 250 chars")
     private String description;
-
     private String date;
-
     private Post post;
     private User user;
 
@@ -35,12 +34,5 @@ public class CommentDTO implements Serializable {
         id = entity.getId();
         description = entity.getDescription();
         date = entity.getDate();
-    }
-
-    public CommentDTO(Comment entity, Post post, User user) {
-        this(entity);
-        post.getComments();
-        user.getComments();
-
     }
 }
