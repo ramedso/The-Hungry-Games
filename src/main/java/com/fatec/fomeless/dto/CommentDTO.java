@@ -34,5 +34,6 @@ public class CommentDTO implements Serializable {
         id = entity.getId();
         description = entity.getDescription();
         date = entity.getDate();
+        //user = entity.getUser();
     }
 }

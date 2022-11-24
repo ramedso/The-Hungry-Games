@@ -34,6 +34,8 @@ public class Post implements Serializable {
 
     private boolean threadOpen = true;
 
+    private Integer numberOfComments;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

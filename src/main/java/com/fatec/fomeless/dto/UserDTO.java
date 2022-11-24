@@ -4,6 +4,7 @@ import com.fatec.fomeless.entities.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,6 +26,10 @@ public class UserDTO implements Serializable {
     @NotBlank(message = "Mandatory field")
     private String name;
 
+    @CPF
+    @NotBlank(message = "Mandatory field")
+    private String cpf;
+
     @NotBlank(message = "Mandatory field")
     private String address;
 
@@ -42,6 +47,7 @@ public class UserDTO implements Serializable {
     public UserDTO(User user) {
         id = user.getId();
         name = user.getName();
+        cpf = user.getCpf();
         address = user.getAddress();
         phone = user.getPhone();
         signUpDate = user.getSignUpDate();

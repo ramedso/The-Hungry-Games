@@ -1,7 +1,6 @@
 package com.fatec.fomeless.resources.exceptions;
 
 import com.fatec.fomeless.services.exceptions.DatabaseException;
-import com.fatec.fomeless.services.exceptions.InvalidEmailException;
 import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardException> email(MethodArgumentNotValidException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardException error = new StandardException();
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());

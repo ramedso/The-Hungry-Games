@@ -9,11 +9,17 @@ import com.fatec.fomeless.repositories.UserRepository;
 import com.fatec.fomeless.services.exceptions.DatabaseException;
 import com.fatec.fomeless.services.exceptions.InvalidEmailException;
 import com.fatec.fomeless.services.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,10 +29,18 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+
+    private final static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -48,7 +62,7 @@ public class UserService {
     public UserDTO insert(UserInsertDTO dto) {
         User user = new User();
         dtoConversion(dto, user);
-        user.setPassword(dto.getPassword());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user = repository.save(user);
 
         return new UserDTO(user);
@@ -79,6 +93,7 @@ public class UserService {
 
     private void dtoConversion(UserDTO dto, User entity) {
         entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
         entity.setAddress(dto.getAddress());
         entity.setPhone(dto.getPhone());
         entity.setSignUpDate(dto.getSignUpDate());
@@ -91,5 +106,16 @@ public class UserService {
                         roleRepository.getReferenceById(roleDTO.getId())
                 )
         );
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            logger.error("User not found: " + username);
+            throw new UsernameNotFoundException("Email not found");
+        }
+        logger.info("User found: " + username);
+        return user;
     }
 }

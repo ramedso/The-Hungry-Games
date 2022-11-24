@@ -1,5 +1,6 @@
 package com.fatec.fomeless.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,4 @@ public class Comment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }

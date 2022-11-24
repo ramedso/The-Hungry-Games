@@ -1,7 +1,5 @@
 package com.fatec.fomeless.tests;
 
-import com.fatec.fomeless.entities.Document;
-
 public class DocumentFactory {
 
     public static void createEmptyDocument(){
