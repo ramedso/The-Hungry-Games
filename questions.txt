@@ -1,0 +1,14 @@
+1 - sobre a contagem de comentarios em cada post (JPQL); abrir os comentario apenas quando a pesquisa for pelo id
+
+2 - puxar o doc do user por query e retornar no get all?
+2.1 - post e comentarios paginados quando a bsuca for por id?
+
+3 - questão da validação do email
+
+4 - passagem da senha por outro dto, legal?
+
+5 - put ou patch?
+
+6 - http 422 para erros de validação?
+
+7 - put dos posts não muda o estado de threadOpen
