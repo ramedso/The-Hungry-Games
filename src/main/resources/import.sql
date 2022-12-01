@@ -11,7 +11,6 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 3);
 
 INSERT INTO tb_post(title, description, date, thread_Open, user_id) VALUES ('Have some food here!', 'Rice, beans and chocolates!', TIMESTAMP WITH TIME ZONE '2020-07-15T10:00:00Z', TRUE, 1);
